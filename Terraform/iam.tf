@@ -1,4 +1,4 @@
-resource "aws_iam_role" "iam_role" {
+resource "aws_iam_role" "ec2_role" {
   name = "${local.resource_component}-role"
 
   assume_role_policy = jsonencode({
@@ -16,9 +16,9 @@ resource "aws_iam_role" "iam_role" {
     })
 }
 
-resource "aws_iam_role_policy" "iam_policy" {
+resource "aws_iam_role_policy" "ec2_policy" {
   name = "${local.resource_component}-policy"
-  role = "${aws_iam_role.iam_role.id}"
+  role = "${aws_iam_role.ec2_role.id}"
 
   policy = jsonencode({
     "Version": "2012-10-17",
@@ -81,7 +81,6 @@ resource "aws_s3_bucket_policy" "source_bucket_policy" {
         }
     ]
     })
-    
 }
 
 # attach on component end
