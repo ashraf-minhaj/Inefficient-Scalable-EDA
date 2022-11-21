@@ -44,7 +44,8 @@ resource "aws_launch_template" "machine_template" {
   image_id              = "${var.instance_ami}"
   instance_type         = "${var.instance_type}"
   key_name              = "${var.ssh_key}"
-  # user_data             = data.cloudinit_config.config.rendered
+  # user_data             = "${data.cloudinit_config.config.rendered}"
+  user_data             = filebase64("./setup.sh")
 
   iam_instance_profile {
     name = "${aws_iam_instance_profile.instance_profile.name}"
@@ -58,18 +59,4 @@ resource "aws_launch_template" "machine_template" {
     enabled = true
   }
 
-}
-
-
-resource "aws_autoscaling_group" "asg" {
-  availability_zones = ["${var.aws_region}a", "${var.aws_region}b"]
-  desired_capacity   = 1
-  max_size           = 1
-  min_size           = 1
-
-  launch_template {
-    id      = "${aws_launch_template.machine_template.id}"
-    # '$Latest', '$Default', numeric
-    version = "$Latest"
-  }
 }
