@@ -13,6 +13,9 @@ resource "aws_cloudfront_distribution" "destination_distribution" {
         origin_id                   = local.s3_origin_id
     }
 
+    enabled             = true
+    is_ipv6_enabled     = true
+
     default_cache_behavior {
         # allowed_methods  = ["HEAD", "GET", "OPTIONS", "PATCH", "POST", "PUT"]
         allowed_methods  = ["HEAD", "GET"]
@@ -29,20 +32,6 @@ resource "aws_cloudfront_distribution" "destination_distribution" {
         min_ttl                = 0
         default_ttl            = 3600
         max_ttl                = 86400
-    }
-
-    enabled             = true
-    is_ipv6_enabled     = true
-    price_class         = "PriceClass_All"
-
-    restrictions {
-        geo_restriction {
-            restriction_type = "none"
-            }
-        }
-    
-    viewer_certificate {
-        cloudfront_default_certificate = true
     }
 
     # # Cache behavior with precedence 0

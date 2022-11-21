@@ -1,4 +1,4 @@
-# source bucket
+### **** source bucket ****
 resource "aws_s3_bucket" "source_bucket" {
     bucket = "${var.source_bucket}"   
 }
@@ -20,8 +20,20 @@ resource "aws_s3_bucket_cors_configuration" "source_bucket_cors" {
   }
 }
 
+resource "aws_s3_bucket_notification" "source_bucket_notification" {
+  bucket = aws_s3_bucket.source_bucket.id
 
-# destinition bucket
+  queue {
+    # id            = "object-upload-event"
+    queue_arn     = aws_sqs_queue.sqs_queue.arn
+    events        = ["s3:ObjectCreated:*"]
+    # filter_suffix = ".mp4"
+    filter_suffix = ".png"
+  }
+}
+
+
+# ****  destinition bucket ****
 resource "aws_s3_bucket" "destination_bucket" {
     bucket = "${var.destination_bucket}"   
 }
