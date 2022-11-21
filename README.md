@@ -5,7 +5,7 @@ To do List -
 
 - [x] s3 bucket (source, destinition)
 - [x] bucket cors, policy
-- [ ] cloudfront, bucket policy
+- [x] cloudfront, bucket policy
 - [ ] sqs queue
 - [ ] s3 notification to sqs
 - [ ] sqs cloudwatch alarm

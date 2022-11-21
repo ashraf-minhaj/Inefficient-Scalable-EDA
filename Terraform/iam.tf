@@ -59,6 +59,8 @@ resource "aws_iam_role_policy" "ec2_policy" {
     ]
     })
 }
+# attach on component end
+
 
 # s3 bucket policy
 resource "aws_s3_bucket_policy" "source_bucket_policy" {
@@ -83,4 +85,37 @@ resource "aws_s3_bucket_policy" "source_bucket_policy" {
     })
 }
 
-# attach on component end
+resource "aws_s3_bucket_policy" "destination_bucket_policy" {
+    bucket = aws_s3_bucket.destination_bucket.id
+    policy = jsonencode({
+        "Version": "2008-10-17",
+        "Id": "PolicyForCloudFrontPrivateContent",
+        "Statement": [
+            {
+                "Sid": "Allow our access key",
+                "Effect": "Allow",
+                "Principal": {
+                    "AWS": "*"
+                },
+                "Action": "s3:*",
+                "Resource": "arn:aws:s3:::${var.destination_bucket}/*"
+            },
+            {
+                "Sid": "AllowCloudFrontServicePrincipal",
+                "Effect": "Allow",
+                "Principal": {
+                    "Service": "cloudfront.amazonaws.com"
+                },
+                "Action": "s3:GetObject",
+                "Resource": "arn:aws:s3:::${var.destination_bucket}/*",
+                "Condition": {
+                    "StringEquals": {
+                        "AWS:SourceArn": aws_cloudfront_distribution.destination_distribution.arn
+                    }
+                }
+            }
+        ]
+    })
+  
+}
+
