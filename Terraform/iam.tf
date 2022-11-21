@@ -60,4 +60,28 @@ resource "aws_iam_role_policy" "iam_policy" {
     })
 }
 
+# s3 bucket policy
+resource "aws_s3_bucket_policy" "source_bucket_policy" {
+  bucket = aws_s3_bucket.source_bucket.id
+  policy = jsonencode({
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "*",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": [
+                    "*"
+                ]
+            },
+            "Action": [
+                "s3:*"
+            ],
+            "Resource": "arn:aws:s3:::${var.source_bucket}/*"
+        }
+    ]
+    })
+    
+}
+
 # attach on component end
