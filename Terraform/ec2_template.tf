@@ -40,12 +40,11 @@ resource "aws_iam_instance_profile" "instance_profile" {
 
 resource "aws_launch_template" "machine_template" {
   name                  = "test-min-template" 
-  # name_prefix           = "test-min-ins-temp"
   image_id              = "${var.instance_ami}"
   instance_type         = "${var.instance_type}"
   key_name              = "${var.ssh_key}"
-  # user_data             = "${data.cloudinit_config.config.rendered}"
   user_data             = filebase64("./setup.sh")
+  # user_data             = "${data.cloudinit_config.config.rendered}"
 
   iam_instance_profile {
     name = "${aws_iam_instance_profile.instance_profile.name}"
