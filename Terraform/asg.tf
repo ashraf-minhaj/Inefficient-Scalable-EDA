@@ -5,7 +5,6 @@ resource "aws_autoscaling_group" "asg" {
   max_size                      = 3
   min_size                      = 0
   
-
   launch_template {
     id                          = "${aws_launch_template.machine_template.id}"
     version                     = "$Latest"
@@ -18,13 +17,11 @@ resource "aws_autoscaling_policy" "asg_policy_scale_up" {
   autoscaling_group_name        = "${aws_autoscaling_group.asg.name}"
   adjustment_type               = "ChangeInCapacity"
   policy_type                   = "StepScaling"
-  # scaling_adjustment            = 1 
   estimated_instance_warmup     = 300
 
   step_adjustment {
     scaling_adjustment          = 1
     metric_interval_lower_bound = 0
-    # metric_interval_upper_bound = 1
   }
 }
 
@@ -33,7 +30,6 @@ resource "aws_autoscaling_policy" "asg_policy_scale_down" {
   autoscaling_group_name        = "${aws_autoscaling_group.asg.name}"
   adjustment_type               = "ChangeInCapacity"
   policy_type                   = "StepScaling"
-  # scaling_adjustment            = 1 
   estimated_instance_warmup     = 300
 
   step_adjustment {
@@ -42,21 +38,3 @@ resource "aws_autoscaling_policy" "asg_policy_scale_down" {
     metric_interval_upper_bound = 0
   }
 }
-
-#   step_adjustment {
-#     scaling_adjustment          = 1
-#     metric_interval_lower_bound = 0
-#     metric_interval_upper_bound = 10
-#   }
-
-#   step_adjustment {
-#     scaling_adjustment          = -1
-#     metric_interval_upper_bound = -10
-#   }
-
-#   step_adjustment {
-#     scaling_adjustment          = -1
-#     metric_interval_lower_bound = -10
-#     metric_interval_upper_bound = 0
-#   }
-# }

@@ -35,17 +35,17 @@ resource "aws_s3_bucket_notification" "source_bucket_notification" {
 
 # ****  destinition bucket ****
 resource "aws_s3_bucket" "destination_bucket" {
-    bucket = "${var.destination_bucket}"   
+    bucket          = "${var.destination_bucket}"   
 }
 
 resource "aws_s3_bucket_acl" "destination_bucket_acl" {
-  bucket = aws_s3_bucket.destination_bucket.id
-  acl    = "public-read"
+  bucket            = aws_s3_bucket.destination_bucket.id
+  acl               = "public-read"
 }
 
 resource "aws_s3_bucket_cors_configuration" "destination_bucket_cors" {
-  bucket = aws_s3_bucket.destination_bucket.id
-
+  bucket            = aws_s3_bucket.destination_bucket.id
+  
   cors_rule {
     allowed_headers = ["*"]
     allowed_methods = ["PUT", "GET", "DELETE"]
