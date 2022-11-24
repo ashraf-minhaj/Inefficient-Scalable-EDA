@@ -10,10 +10,13 @@ To do List -
 - [x] s3 notification to sqs
 - [x] ec2 launch template
 - [x] autoscaling group
-- [ ] sqs cloudwatch alarm
+- [x] sqs cloudwatch alarm
+- [x] autoscale based on cloudwatch alarm
+- [ ] download and run code from github
 - [ ] process
-- [ ] upload to destination
-- [ ] log
+- [x] upload to destination
+- [x] log (system, processing log)
+- [ ] dead letter queue
 <!-- - [ ]  -->
 
 #### Inspiration
@@ -24,5 +27,7 @@ Now implementing it in terraform.
 
 
 get availability zones - `aws ec2 describe-availability-zones --region region-name`
+
+Oh, this [reddit post](https://www.reddit.com/r/aws/comments/aclw37/please_help_with_terraform_script_with/) helped a lot.
 
 (c) Ashraf Minhaj

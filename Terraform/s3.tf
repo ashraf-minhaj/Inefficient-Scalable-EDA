@@ -1,11 +1,11 @@
 ### **** source bucket ****
 resource "aws_s3_bucket" "source_bucket" {
-    bucket = "${var.source_bucket}"   
+    bucket          = "${var.source_bucket}"   
 }
 
 resource "aws_s3_bucket_acl" "source_bucket_acl" {
-  bucket = aws_s3_bucket.source_bucket.id
-  acl    = "public-read"
+  bucket            = aws_s3_bucket.source_bucket.id
+  acl               = "public-read"
 }
 
 resource "aws_s3_bucket_cors_configuration" "source_bucket_cors" {
@@ -21,14 +21,14 @@ resource "aws_s3_bucket_cors_configuration" "source_bucket_cors" {
 }
 
 resource "aws_s3_bucket_notification" "source_bucket_notification" {
-  bucket = aws_s3_bucket.source_bucket.id
+  bucket            = aws_s3_bucket.source_bucket.id
 
   queue {
     # id            = "object-upload-event"
-    queue_arn     = aws_sqs_queue.sqs_queue.arn
-    events        = ["s3:ObjectCreated:*"]
+    queue_arn       = aws_sqs_queue.sqs_queue.arn
+    events          = ["s3:ObjectCreated:*"]
+    filter_suffix   = ".png"
     # filter_suffix = ".mp4"
-    filter_suffix = ".png"
   }
 }
 
