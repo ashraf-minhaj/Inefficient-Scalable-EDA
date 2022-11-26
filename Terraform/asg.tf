@@ -13,7 +13,7 @@ resource "aws_autoscaling_group" "asg" {
 }
 
 resource "aws_autoscaling_policy" "asg_policy_scale_up" {
-  name                          = "asg_policy"
+  name                          = "asg_step_up_policy"
   autoscaling_group_name        = "${aws_autoscaling_group.asg.name}"
   adjustment_type               = "ChangeInCapacity"
   policy_type                   = "StepScaling"
@@ -26,7 +26,7 @@ resource "aws_autoscaling_policy" "asg_policy_scale_up" {
 }
 
 resource "aws_autoscaling_policy" "asg_policy_scale_down" {
-  name                          = "asg_policy"
+  name                          = "asg_step_down_policy"
   autoscaling_group_name        = "${aws_autoscaling_group.asg.name}"
   adjustment_type               = "ChangeInCapacity"
   policy_type                   = "StepScaling"
@@ -34,7 +34,7 @@ resource "aws_autoscaling_policy" "asg_policy_scale_down" {
 
   step_adjustment {
     scaling_adjustment          = -1
-    # metric_interval_lower_bound = 0
-    metric_interval_upper_bound = 0
+    metric_interval_lower_bound = 0
+    # metric_interval_upper_bound = 1
   }
 }
