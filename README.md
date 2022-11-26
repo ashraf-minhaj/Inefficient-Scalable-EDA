@@ -12,7 +12,7 @@ To do List -
 - [x] autoscaling group
 - [x] sqs cloudwatch alarm
 - [x] autoscale based on cloudwatch alarm
-- [ ] download and run code from github
+<!-- - [ ] download and run code from github -->
 - [ ] process
 - [x] upload to destination
 - [x] log (system, processing log)

@@ -18,3 +18,7 @@ wget https://www.sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4 
 
 cd /home/ubuntu/project/src
 python3 main.py
+
+#
+sudo wget https://github.com/shaka-project/shaka-packager/releases/download/v2.6.1/packager-linux-x64  -O bin/packager
+chmod +x bin/packager

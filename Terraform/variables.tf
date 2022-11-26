@@ -35,7 +35,8 @@ variable "component_name" {
 }
 
 variable "instance_ami" {
-  default = "ami-07651f0c4c315a529"
+  default = "ami-0b24d144bd8810792"
+  # default = "ami-07651f0c4c315a529"
 }
 
 variable "instance_type" {
